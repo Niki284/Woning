@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bouwtype;
+use App\Models\Gallery;
 use App\Models\Makelaar;
 use App\Models\NieuwType;
 use App\Models\Technisch;
@@ -49,7 +50,7 @@ class WoningController extends Controller
             $woningHuis->where('city', 'like', '%' . $filterGemente . '%');
         }
     
-        $woningHuis = $woningHuis->get();
+        $woningHuis = $woningHuis->paginate(6);
     
         return view('woning.index', [
             'woningHuis' => $woningHuis,
@@ -60,43 +61,8 @@ class WoningController extends Controller
             'woning_type_id' => WoningType::all(),
             'filter' => $filter,
             'woningtypes' => $woningtypes
-        ]);
-
-
-
-        // $woningHuis = Woning::all();
-        // $woningtypes = WoningType::all();
-        // $search = request('search');
-        // if($search) {
-        //     $woningHuis = Woning::where(
-        //         'price', 'like', '%' . $search . '%'
-        //     )->get();
-        // }
-
-        // $filter = request('filter');
-        // if($filter) {
-        //     $woningHuis = Woning::where(
-        //         'woning_type_id', 'like', '%' . $filter . '%'
-        //     )->get();
-        // }
-        // return view('woning.index', 
-        // ['woningHuis' => $woningHuis ,
-        //   'search' => $search ,
-        //    'woning_type_id'=>WoningType::all() 
-        //    , 'filter' => $filter ,
-        //     'woningtypes' => $woningtypes]);
+        ]); 
     }
-    
-        
-        // $minprice = request('minprice');
-        // $maxprice = request('maxprice');
-        // if($minprice && $maxprice) {
-        //     $woningHuis = Woning::whereBetween(
-        //         'price'
-        //     , [$minprice, $maxprice])->get();
-        // }
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -116,7 +82,6 @@ class WoningController extends Controller
      */
     public function store(Request $request , $id = null)
     {
-
         $woningHuis = new Woning();
         $woningHuis->title = $request->title;
         $woningHuis->subtitle = $request->subtitle;
@@ -133,11 +98,22 @@ class WoningController extends Controller
         $woningHuis->nieuwtype_id = $request->nieuwtype_id;
         $woningHuis->makelaar_id = $request->makelaar_id;
         if($request->hasFile('image')){
-            $imagePath = $request->file('image')->store('images', 'public');
+            $imagePath = $request->file('image')->store('images/simpel', 'public');
             $woningHuis->image = Storage::url($imagePath);
         }
 
         $woningHuis->save();
+
+        if($request->hasFile('images')){
+            foreach ($request->file('images') as $file) {
+                $gallery = new Gallery();
+                $imagePath = $file->store('images/woning', 'public');
+                $gallery->image = Storage::url($imagePath);
+                $gallery->woning_id = $woningHuis->id;
+                $gallery->save();
+            }
+        }
+
         // Haal de geselecteerde voorzieningen op uit het verzoek
         $selectedVoorzieningen = $request->input('voorziening', []);
 
@@ -212,14 +188,27 @@ class WoningController extends Controller
         $woningHuis->size = $request->size;
         $woningHuis->refnummer = $request->refnummer;
         if($request->hasFile('image')){
-            $imagePath = $request->file('image')->store('images', 'public');
+            $imagePath = $request->file('image')->store('images/simpel', 'public');
             $woningHuis->image = Storage::url($imagePath);
         }
 
         $woningHuis->save();
+
+        if($request->hasFile('images')){
+            foreach ($request->file('images') as $file) {
+                $gallery = new Gallery();
+                $imagePath = $file->store('images/woning', 'public');
+                $gallery->image = Storage::url($imagePath);
+                $gallery->woning_id = $woningHuis->id;
+                $gallery->save();
+            }
+        }
+
         // Haal de geselecteerde voorzieningen op uit het verzoek
         $selectedVoorzieningen = $request->input('voorziening', []);
         $woningHuis->voorzieningen()->sync($selectedVoorzieningen);
+
+
         return redirect('/dashboard/')->with('success', 'Woning is aangepast');
     }
 

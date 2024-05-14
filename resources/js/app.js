@@ -15,21 +15,6 @@ window.Alpine = Alpine;
 Alpine.start();
 
 
-// const dialog = document.querySelector("dialog");
-// const showButton = document.querySelector("dialog + button");
-// const closeButton = document.querySelector("dialog button");
-
-// // "Show the dialog" button opens the dialog modally
-// showButton.addEventListener("click", () => {
-//   dialog.showModal();
-// });
-
-// // "Close" button closes the dialog
-// closeButton.addEventListener("click", () => {
-//   dialog.close();
-// });
-
-
 // Get dialog elements
 const woningDialog = document.getElementById("woningDialog");
 const woningTypeDialog = document.getElementById("woningTypeDialog");
@@ -104,32 +89,4 @@ makelaarDialog.querySelector("button").addEventListener("click", () => {
     makelaarDialog.close();
 });
 
-function berekenBedrag() {
-    var bedrag = parseFloat(document.getElementById("bedrag").value);
-    var rente = parseFloat(document.getElementById("rente").value);
-    var looptijd = parseFloat(document.getElementById("looptijd").value);
-    var maandelijkseAflossing = parseFloat(document.getElementById("maandelijkse_aflossing").value);
 
-    // Berekening van het bedrag
-    var rentePerMaand = rente / 100 / 12;
-    var aantalMaanden = looptijd * 12;
-    var bedragPerMaand = (bedrag * rentePerMaand) / (1 - Math.pow(1 + rentePerMaand, -aantalMaanden));
-    var totaalBedrag = bedragPerMaand * aantalMaanden;
-
-    // Het totale bedrag weergeven
-    document.getElementById("totaal_bedrag").textContent = totaalBedrag.toFixed(2);
-}
-
-// Event listeners toevoegen aan de sliders
-var sliders = document.querySelectorAll("input[type='range']");
-sliders.forEach(function(slider) {
-    slider.addEventListener("input", function() {
-        berekenBedrag();
-    });
-});
-
-// Het bedrag initieel berekenen
-berekenBedrag();
-
-
-new Splide( '.splide' ).mount();

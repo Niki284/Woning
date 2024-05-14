@@ -57,4 +57,14 @@ class Woning extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+
+    public function formulier()
+    {
+        return $this->hasMany(Formulier::class);
+    }
+
+    public function bouwtechnisch()
+    {
+        return $this->hasOne(Bouwtechnisch::class);
+    }
 }

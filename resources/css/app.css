@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Voeg Font Awesome CSS toe */
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 
 *{
@@ -42,7 +44,7 @@
     gap: 2rem;
     color: white;
     margin: 0 auto;
-    max-width: 90rem;
+    max-width: 80rem;
     padding: 0.7rem;
 }
 .header__top__list a:hover{
@@ -50,15 +52,25 @@
     text-decoration: none;
 }
 .header__max{
-    max-width: 90rem;
+    max-width: 80rem;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 2rem 0;
 }
 .navigation__flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
+}
+@media screen and (max-width: 768px) {
+    .navigation__flex  ,.header__top__list--richt{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+    
 }
 
 .header__top__list--richt {
@@ -84,8 +96,12 @@
 
 /*algemene content*/
 
+main {
+    padding: 2rem 1rem;
+}
+
 .max__container {
-    max-width: 90rem;
+    max-width: 80rem;
     margin: 0 auto;
     padding: 2rem 1rem;
 }
@@ -93,6 +109,7 @@
     max-width: 76rem;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
 }
 .list__render__item button.update-button {
@@ -106,7 +123,20 @@
     gap: 2rem;
     list-style: none;
     margin: 0 auto;
-    max-width: 90rem;
+    max-width: 80rem;
+}
+
+@media screen and (max-width: 768px) {
+    .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+        list-style: none;
+        margin: 0 auto;
+        max-width: 90rem;
+        padding: 1rem;
+    }
+    
 }
 
 .product {
@@ -133,6 +163,32 @@
     position: relative;
 }
 
+.hiddenknop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+
+.product:hover .hiddenknop {
+    opacity: 1;
+    color: white;
+    background-color: red;
+    padding: 0.5rem ;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1;
+}
+.product img:hover{
+    opacity: 0.7;
+    transition: 0.5s ease all;
+    background-color: rgba(0,0,0);
+    z-index: 0;
+}
+
 .product--overflo {
     position: absolute;
     top: 15px;
@@ -152,6 +208,19 @@
     color: var(--color-primary);
     font-weight: bold;
 }
+
+@media screen and (max-width: 768px){
+    .product__price {
+        font-size: 1rem;
+        padding: 0.5rem; 
+        display: flex;
+        background-color: #c1c5c8;
+        color: var(--color-primary);
+        flex-direction: column;
+        font-weight: bold;
+    }
+
+}
 .product__price span {
     padding: 0.5rem;
     font-size: 1rem;
@@ -159,7 +228,7 @@
 .product__info{
     font-weight: bold;
     margin: 1rem 0;
-    padding: 0 0.5rem;
+    padding: 0 1rem;
     min-height: 5rem;
     overflow-x: hidden;
 }
@@ -183,16 +252,27 @@
     color: orange;
 }
 .product__filter {
-    max-width: 90rem;
+    max-width: 80rem;
     margin: 0 auto;
 }
 .product__mini__list ,.product__filter__list{
     list-style-type: none;
     display: flex;
     justify-content: space-between;
-    padding: 1rem 0.5rem;
+    padding: 1rem;
     color: var(--color-primary);
     border: 1px solid #000;
+}
+@media screen and (max-width: 768px) {
+    .product__mini__list ,.product__filter__list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1rem 0.5rem;
+        color: var(--color-primary);
+        border: 1px solid #000;
+    }
+    
 }
 .product__mini__list 
  {
@@ -212,6 +292,12 @@ border-right: none;
 }
 .product__filter__list select {
     width: 15vw;
+}
+@media screen and (max-width: 768px) {
+    .product__filter__list select {
+        width: 100%;
+    }
+    
 }
 
 .product__flex--input {
@@ -241,9 +327,10 @@ border-right: none;
 
 
 .contaner,.gegevens {
-    max-width: 90rem;
+    max-width: 80rem;
     margin: 0 auto;
 }
+
 
 /* Detal page */
 
@@ -252,6 +339,42 @@ border-right: none;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
     justify-items: stretch;
+}
+@media screen and (max-width: 768px) {
+    .detail__grid {
+        grid-template-columns: 1fr;
+    }
+    
+}
+.gegevens.gegevens__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Twee kolommen met gelijke breedte */
+    grid-template-areas: 
+        "score score score" /* Eerste rij: score links, info rechts */
+        "text text info"; /* Tweede rij: text over twee kolommen */
+    gap: 60px; /* Afstand tussen de kolommen */
+}
+@media screen and (max-width: 768px) {
+    .gegevens.gegevens__grid {
+        padding: 1rem;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-areas: 
+            "score " /* Eerste rij: score links, info rechts */
+            "info" /* Tweede rij: text over twee kolommen */
+            "text"; /* Derde rij: text over twee kolommen */
+    }   
+}
+
+.gegevens__grid .gegevens__grid--score {
+    grid-area: score; /* Plaats deze div in het gebied met de naam "score" */
+}
+
+.gegevens__grid .detail__info {
+    grid-area: info; /* Plaats deze div in het gebied met de naam "info" */
+}
+
+.gegevens__grid .gegevens__grid--text {
+    grid-area: text; /* Plaats deze div in het gebied met de naam "text" */
 }
 
 .detail__info__block {
@@ -290,7 +413,7 @@ border-right: none;
 .detail__foto img , .detail__foto--slide img {
     width: 100%;
     aspect-ratio: 16/9;
-    /* height: 100%; */
+    height: 100%;
     /* max-height: 26rem; */
     position: relative;
 }
@@ -309,7 +432,7 @@ border-right: none;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 400px;
+    /* max-width: 400px; */
     padding: 1rem;
     border: 1px solid #000;
 }
@@ -404,8 +527,10 @@ dialog {
     margin: auto;
 }
 .btn-close{
+    display: block;
     transition: 0.5s ease all;
     border-radius: 5px;
+    background:none !important ;
 }
 .btn-close button{
     background-color: red;
@@ -486,9 +611,18 @@ dialog {
     display: flex;
     justify-content: space-between;
 }
+
+.list__render.list__render--wrap {
+    display: flex;    
+    flex-direction: row;
+
+    justify-content: space-between;
+}
 .list__render--flex li {
    display: flex;
-   flex-direction: column;
+   flex-direction: column;  
+   max-width: 60rem;
+   width: 80vw;
 }
 .list__render--flex form {
     display: flex;
@@ -604,7 +738,7 @@ dialog {
     padding: 3rem 0;
     background-color: aqua;
     margin: 0 auto;
-    max-width: 90rem;
+    max-width: 80rem;
     border-radius: 1rem;
 }
 .gegevens__reservatie {
@@ -669,6 +803,8 @@ dialog {
 }
 .gegevens__list {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 .gegevens__list li{
@@ -748,6 +884,66 @@ dialog {
     margin:0.5rem 0;
     color: #666;
 }
+
+.list__render {
+    list-style: none;
+    padding: 0;
+}
+
+.list__render__item {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-control-file {
+    width: auto;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.img-preview {
+    max-width: 100px;
+    margin-top: 10px;
+}
+
+.update-button, .delete-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.update-button:hover, .delete-button:hover {
+    opacity: 0.8;
+}
+
 
 /*
 .gegevens__list--tech  li:nth-child(odd) {

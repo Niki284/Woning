@@ -1,35 +1,34 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 ">
     <!-- Primary Navigation Menu -->
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="header__top">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-black">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
+                <!-- Logo
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard.admin') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <img src="{{ asset('/logo.png') }}"class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" alt="logo">
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- Navigation Links 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard.admin')" :active="request()->routeIs('dashboard.admin')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                </div>
+                </div> -->
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <div class="header__top">
+                
                     <ul class="header__top__list">
                         <li><a href="/">GRATIS SCHATTING</a></li>
-                        <li><a href="/">Verkocht</a></li>
-                        <li><a href="/">Onze belofte </a></li>
+                        <li><a href="/woning">Verkocht</a></li>
+                        <li><a href="/woning">Onze belofte </a></li>
                         <li><a href="/">Blog</a></li>
-                        <li><a href="/">Contact</a></li>
+                        <li><a href="/contact">Contact</a></li>
                     </ul>
-                </div>
 
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -45,6 +44,11 @@
                     </x-slot>
 
                     <x-slot name="content">
+                    <x-nav-link :href="route('dashboard.admin')" :active="request()->routeIs('dashboard.admin')">
+                    <x-dropdown-link :href="route('dashboard.admin')" :active="request()->routeIs('dashboard.admin')">
+                        {{ __('Dashboard') }}
+                    </x-dropdown-link>
+                    </x-nav-link>
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -73,7 +77,9 @@
             </div>
         </div>
     </div>
-    <nav class="header__max">
+    </div>
+
+    <nav class=" header__max">
 
         <div class="navigation__flex">
            <div class="nav__logo">
@@ -89,10 +95,10 @@
            
         </div>
         <div class="header__top__list--sosial">
-                <a href="/"> <img src="{{ asset('/img/icons/facebook.svg') }}" alt="facebook"></a>
-                 <a href="/"><img src="{{ asset('/img/icons/twitterx.svg') }}" alt="twitter"></a>
-                <a href="/"><img src="{{ asset('/img/icons/linkedin.svg') }}" alt="linkendin"></a>
-                <a href="/"><img src="{{ asset('/img/icons/whatsapp.svg') }}" alt="whatsapp"></a>
+                <a href="/https://www.facebook.com/login.php?skip_api_login=1&api_key=966242223397117&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fsharer%2Fsharer.php%3Fu%3Dhttps%253A%252F%252Fwww.immovanhoorick.be%252Fnl%252Fpropertydetail%253Fpropertyid%253D3683163&cancel_url=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Fclose_window%2F%3Fapp_id%3D966242223397117%26connect%3D0%23_%3D_&display=popup&locale=nl_NL"> <img src="{{ asset('/img/icons/facebook.svg') }}" alt="facebook"></a>
+                 <a href="/https://twitter.com/intent/post?url=https%3A%2F%2Fwww.immovanhoorick.be%2Fnl%2Fpropertydetail%3Fpropertyid%3D3683163"><img src="{{ asset('/img/icons/twitterx.svg') }}" alt="twitter"></a>
+                <a href="/https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%3Fmini%3Dtrue%26url%3Dwww.immovanhoorick.be%2Fnl%2Fproperty%2F3683163%2F"><img src="{{ asset('/img/icons/linkedin.svg') }}" alt="linkendin"></a>
+                <a href="/https://api.whatsapp.com/send?text=%20https%3A%2F%2Fwww.immovanhoorick.be%2Fnl%2Fpropertydetail%3Fpropertyid%3D3683163"><img src="{{ asset('/img/icons/whatsapp.svg') }}" alt="whatsapp"></a>
                 <a href="/"><img src="{{ asset('/img/icons/mail.svg') }}" alt="mail"></a>
                 <a href="/"><img src="{{ asset('/img/icons/print.svg') }}" alt="print"></a>
                 
@@ -103,7 +109,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard.admin')" :active="request()->routeIs('dashboard.admin')">
                 {{ __('Dashboard') }}
+
             </x-responsive-nav-link>
+            
         </div>
 
         <!-- Responsive Settings Options -->

@@ -78,7 +78,7 @@ class IndelingController extends Controller
 
         $indeling->save();
 
-        return redirect()->route('indeling.index')->with('success', 'Indeling is toegevoegd');
+        return redirect('/dashboard/woning/')->with('success', 'Indeling is toegevoegd');
         
     }
 

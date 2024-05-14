@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.app')
 
 @section('content')
 
@@ -39,11 +39,12 @@
 
                     <button type="submit"> Update </button>
                     </form>
-                <form method="post" action="/technisch/{{$technisch->id}}">
+
+                    <form method="post" action="/dashboard/technisch/{{$technisch->id}}">
                     @csrf
                     @method('delete')
-                    <button type="submit">Delete</button>
-                </form>
+                    <button type="submit"> Delete </button>
+                    </form>
                 </li>
             @endforeach
         </ul>

@@ -1,6 +1,7 @@
-@extends('layouts.base')
+@extends('layouts.app')
 
 @section('content')
+<div class="max__container">
 
 <ul class="list__render">
     @foreach ($voorziningen as $voorzining)
@@ -21,6 +22,9 @@
 
 <div class="link__add">
     <a href="/dashboard/voorziningen/create">Add Voorziningen</a>
+    <a href="/dashboard">Ga terug </a>
+</div>
+
 </div>
 
 @endsection

@@ -51,7 +51,7 @@ class IndelingController extends Controller
         $indeling->zolder = $request->zolder;
 
         $indeling->save();
-        return redirect()->route('indeling.index')->with('success', 'Indeling is toegevoegd');
+        return redirect('/dachboard/woning/')->route('indeling.index')->with('success', 'Indeling is toegevoegd');
         // return redirect('/woning/' . $request->input('woning_id'))->with('success', 'Indeling is toegevoegd');
     } /**
     * Show the form for editing the specified resource.
